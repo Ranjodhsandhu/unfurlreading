@@ -1,21 +1,21 @@
 {
-  "name": "hackeryou-fullstack-project",
+  "name": "unfurlreading",
   "version": "1.0.0",
   "description": "Juno Full-Stack Development Project",
   "main": "index.js",
   "scripts": {
-    "init": "node scripts/init.js",
     "test": "react-scripts test",
     "start:server": "nodemon api/server.js --ignore src/ --ignore build/ --ignore public/",
     "start:client": "react-scripts start",
-    "build:client": "react-scripts build"
+    "build:client": "react-scripts build",
+    "git": "node scripts/git.js Ranjodhsandhu unfurlreading"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HackerYou/con-ed-full-stack.git"
+    "url": "git+https://github.com/Ranjodhsandhu/unfurlreading.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ranjodh",
   "license": "ISC",
   "dependencies": {
     "eslint": "^6.6.0",
@@ -54,5 +54,9 @@
   },
   "eslintConfig": {
     "extends": "react-app"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/HackerYou/con-ed-full-stack/issues"
+  },
+  "homepage": "https://github.com/HackerYou/con-ed-full-stack#readme"
 }
