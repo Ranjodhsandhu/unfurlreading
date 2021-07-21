@@ -30,9 +30,11 @@ mongoose
   .connect(URL, MONGO_CONFIG)
   .then(async () => {
     console.log(`Connected to database at ${URL}`)
+    
     app.listen(PORT, () => {
       console.log(`Server is running on PORT: ${PORT}`)
     })
+  
   })
   .catch((err) => {
     console.error(err)
