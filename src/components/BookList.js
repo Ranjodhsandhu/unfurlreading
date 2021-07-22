@@ -1,11 +1,11 @@
-import React, { useState, useCallback, useEffect, useReducer } from 'react';
+import React, { useState, useCallback, useEffect, useRef, useReducer} from 'react';
 import BookCard from './BookCard';
 
 function BookList({searchTerm}){
     const [books, setBooks] = useState([]);
-    // const [, forceUpdate] = useReducer(x => x + 1, 0);
-    
-    const refresh = useCallback(async ()=>{
+    const [, forceUpdate] = useReducer(x => x + 1, 0); //This empty state will help the component to re-render on state update from search submit button
+    const mounted = useRef();
+    const refresh = useCallback(async (searchText)=>{
         // try{
         //     // fetch('api/books')
         //     //     .then(response => response.json())
@@ -23,8 +23,7 @@ function BookList({searchTerm}){
         //     console.log(e);
         // }
         try{
-                const searchT = await searchTerm;
-                const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchT ||' Wait '}&projection=lite&orderby=newest`);
+                const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchText ||'Start'}&projection=lite&orderby=newest`);
                 const json = await response.json();
                 const { items:search } = json;
                 setBooks(search);
@@ -35,7 +34,16 @@ function BookList({searchTerm}){
     }, []);
 
     useEffect(()=>{
-        refresh();
+        if (!mounted.current) {
+            // do componentDidMount logic
+            mounted.current = true;
+            refresh();
+        } else {
+            // do componentDidUpdate logic
+            refresh(searchTerm);
+            forceUpdate();
+            console.log(searchTerm);
+        }
     },[refresh,searchTerm]);
 
     return(

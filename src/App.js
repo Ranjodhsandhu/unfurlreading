@@ -9,7 +9,6 @@ function App() {
     e.preventDefault();
     const searchValue = e.target.firstChild.value;
     setSearch(searchValue);
-    console.log(searchValue);
   }
 
   return (
