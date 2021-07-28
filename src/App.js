@@ -1,21 +1,37 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router,
     Route,
-    Switch
+    Switch,
+    Redirect
     } from 'react-router-dom';
 
-// import SearchBook from './components/SearchBook';
-// import BookList from './components/BookList';
 import  SignIn  from './components/SignIn';
+import Main from './components/Main';
+import SignUp from './components/SignUp';
+
 
 function App() {
-  // const [search, setSearch] = useState('');
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const searchValue = e.target.firstChild.value;
-  //   setSearch(searchValue);
-  // }
+  const [ user, setUser ] = useState(undefined);
+  const getUser = useCallback( async function (){
+    try{
+      const response = await fetch('/api/users/me');
+      const json = await response.json();
+      if(!response.ok){
+        throw new Error(json.message);
+      }
+
+      setUser(json.data);
+    }catch(err){
+      console.log(err);
+      setUser(undefined);
+    }
+  });
+
+  useEffect(()=>{
+    getUser();
+  }, [getUser]);
+
 
   return (
     <div className="App">
@@ -23,15 +39,38 @@ function App() {
         <Router>
           <Switch>
             <Route 
-              exact path="/signin"
+              exact 
+              path="/signin"
               render = {props => {
-                return <SignIn />
+                if(user){
+                  return <Redirect to="/" />
+                }
+                return <SignIn getUser={getUser} {...props} />
               }}
               />
+            <Route 
+              exact
+              path="/signup"
+              render={ props =>{
+                if(user){
+                  return <Redirect to="/" />
+                }
+
+                return <SignUp getUser={getUser}updateUser={setUser} {...props}/>
+              }}
+            />
+            <Route
+              path="/"
+              render={ props => {
+                if(!user){
+                  return <Redirect to="/signin" />
+                }
+                return <Main {...props} />
+              }}
+            />
           </Switch>
         </Router>
-            {/* <SearchBook handleSubmit={handleSubmit}/> */}
-            {/* <BookList  searchTerm={search}/> */}
+            
     </div>
   );
 }

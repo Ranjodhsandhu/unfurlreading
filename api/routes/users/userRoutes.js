@@ -4,14 +4,14 @@ const router = express.Router();
 const { verifyToken } = require('../../middleware/verifyToken');
 const { createToken } = require('../../tokens/tokenService');
 
-const { createUser, findUserByEmail } = require('./userController');
+const { createUser, findUserByEmail, findUserById } = require('./userController');
 
 // this route will take care of the signup process
 router.route('/')
     .post(async (req,res)=>{
 
         const { email, password, firstName, lastName} = req.body;
-        console.log(email, password, firstName, lastName);
+        
         if(!email || email === ""){
             res.status(400).json({ message:
             "email must be provided" });
@@ -115,6 +115,22 @@ router
         }
     });
 
+router
+    .use(verifyToken)
+    .route('/me')
+    .get(async ( req, res ) => {
+        try{
+            const user = await findUserById(req.user.id);
+            res.json({
+                data: user
+            })
+        }catch(err){
+            console.log(err);
+            res.status(500).json({
+                message: "internal server error"
+            })
+        }
+    })    
 
 
 
