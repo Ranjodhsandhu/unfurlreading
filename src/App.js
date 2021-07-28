@@ -23,7 +23,7 @@ function App() {
 
       setUser(json.data);
     }catch(err){
-      console.log(err);
+      console.log(err.message);
       setUser(undefined);
     }
   });

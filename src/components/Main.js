@@ -4,9 +4,18 @@ import React from 'react';
 // import BookList from './components/BookList';
 
 export default function Main(){
+    const signOut = async (e) => {
+        e.preventDefault();
+        await  fetch('/api/users/signout');
+    }
     return (
         <div>
-            Main Function 
+            Main Function
+            <form onSubmit= { signOut } >
+                <button type="submit">
+                    Sign Out
+                </button>
+            </form>
         </div>
     )
 } 
@@ -21,5 +30,5 @@ export default function Main(){
 
 
 
-{/* <SearchBook handleSubmit={handleSubmit}/> */ }
-{/* <BookList  searchTerm={search}/> */ }
+/* <SearchBook handleSubmit={handleSubmit}/> */ 
+/* <BookList  searchTerm={search}/> */ 

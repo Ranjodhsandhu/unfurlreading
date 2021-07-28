@@ -5,7 +5,8 @@ export default function SignIn(props){
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
 
-    const handleSubmit = async ()=>{
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
         const response = await fetch('/api/users/signin', {
             method: 'POST',
             headers:{
@@ -18,7 +19,7 @@ export default function SignIn(props){
         if(!response.ok){
             throw new Error( data.message );
         }
-        console.log(props); 
+        console.log(props);
         props.getUser();
 
     }
@@ -27,10 +28,10 @@ export default function SignIn(props){
             <form onSubmit={ handleSubmit }>
                 
                 <label htmlFor="email">Email Address:</label>
-                <input type="text" value={email}id="email" name="email" onChange={(e)=> {setEmail(e.target.value);}}/>
+                <input type="text" value={email}id="email" name="email" onChange={(e)=> {setEmail(e.target.value);}} required/>
                 <br />
                 <label htmlFor="password">Password:</label>
-                <input type="password" value={password} id="password" name="password" onChange={ (e) => { setPassword(e.target.value);}} />
+                <input type="password" value={password} id="password" name="password" onChange={(e) => { setPassword(e.target.value); }} required/>
                 <br />
                 <button type="submit">Sign In</button>
                 <br />

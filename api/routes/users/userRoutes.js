@@ -132,6 +132,18 @@ router
         }
     })    
 
-
+router
+    .route('/signout')
+    .get( ( req, res ) => {
+        try{
+            res.clearCookie('token');
+            res.redirect('/');
+        }catch(err){
+            console.log(err);
+            res.status(500).json({
+                message: "internal server errors"
+            })
+        }
+    })
 
 module.exports = router;
