@@ -3,6 +3,7 @@
 const mongoose = require('mongoose')
 const express = require('express')
 const cookieParser = require('cookie-parser');
+// const jade = require('jade');
 
 // 1. Create main express intance
 const app = express()
@@ -19,9 +20,17 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser());
 
+// Putting this line of code cause of Status code 304 in Network tab of browser
+// app.disable('etag'); // not required now because I removed the infinite call from useEffect() by passing empty array as second arguments
+
+
 // 5. Utilise routes
 app.use('/api/books', bookRoutes)
 app.use('/api/users', userRouter);
+
+/// setting the view engine for the app to jade language // working out with the sign out process render('/') error in server
+// app.set('view engine', 'jade'); // not required now because not using res.render("/") in sign out api
+
 
 // 6. Define configuration for mongodb
 const MONGO_CONFIG = {

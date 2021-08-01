@@ -20,17 +20,16 @@ function App() {
       if(!response.ok){
         throw new Error(json.message);
       }
-
       setUser(json.data);
     }catch(err){
-      console.log(err.message);
+      console.log(err.message+" user not allowed");
       setUser(undefined);
     }
   });
 
   useEffect(()=>{
     getUser();
-  }, [getUser]);
+  },[]);
 
 
   return (
@@ -56,16 +55,18 @@ function App() {
                   return <Redirect to="/" />
                 }
 
-                return <SignUp getUser={getUser}updateUser={setUser} {...props}/>
+                return <SignUp getUser={getUser} updateUser={setUser} {...props}/>
               }}
             />
             <Route
               path="/"
               render={ props => {
+                // console.log("printing user ");
+                // console.log(user);
                 if(!user){
                   return <Redirect to="/signin" />
                 }
-                return <Main {...props} />
+                return <Main {...props} setUser={setUser} />
               }}
             />
           </Switch>

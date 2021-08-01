@@ -1,34 +1,44 @@
 import React from 'react';
+import { useState } from 'react';
+// import {
+//     withRouter,
+// } from 'react-router-dom';
 
-// import SearchBook from './components/SearchBook';
-// import BookList from './components/BookList';
+import SearchBook from './SearchBook';
+import BookList from './BookList';
 
-export default function Main(){
-    const signOut = async (e) => {
+function Main(props){
+    const {setUser} = props;
+    const [search, setSearch] = useState('');
+
+    function handleSubmit(e) {
         e.preventDefault();
-        await  fetch('/api/users/signout');
+        const searchValue = e.target.firstChild.value;
+        setSearch(searchValue);
+    }
+
+    const signOut = async function (e){
+        e.preventDefault();
+        await  fetch('/api/users/signout')
+                .then(()=>{setUser(undefined);})
+        // return <Router>
+        //     <Redirect to="/" />
+        // </Router>
     }
     return (
         <div>
             Main Function
             <form onSubmit= { signOut } >
-                <button type="submit">
-                    Sign Out
-                </button>
+                <a href="/signout">
+                    <button type="submit" >
+                        Sign Out
+                    </button>
+                </a>
             </form>
+            <SearchBook handleSubmit={handleSubmit}/> 
+            <BookList  searchTerm={search}/> 
         </div>
     )
 } 
 
-
-  // const [search, setSearch] = useState('');
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const searchValue = e.target.firstChild.value;
-  //   setSearch(searchValue);
-  // }
-
-
-
-/* <SearchBook handleSubmit={handleSubmit}/> */ 
-/* <BookList  searchTerm={search}/> */ 
+export default Main; //withRouter(Main);

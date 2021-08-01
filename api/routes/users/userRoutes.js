@@ -103,7 +103,7 @@ router
             const token = createToken ({
                 id: user._id
             });
-            res.cookie('token', token);
+            res.cookie('token', token,{sameSite:'lax'});
             res.status(200).send({
                 message: `Signed in as ${user.firstName}`
             });
@@ -136,8 +136,12 @@ router
     .route('/signout')
     .get( ( req, res ) => {
         try{
-            res.clearCookie('token');
-            res.redirect('/');
+            // res.clearCookie('token');
+            res.cookie('token','',{maxAge:-1});
+            res.redirect("/");
+            // res.render('<br />');
+            // var delete_cookie = function (name) { document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'; };
+            // delete_cookie('token')
         }catch(err){
             console.log(err);
             res.status(500).json({

@@ -19,7 +19,7 @@ export default function SignIn(props){
         if(!response.ok){
             throw new Error( data.message );
         }
-        console.log(props);
+        // console.log(props);
         props.getUser();
 
     }
