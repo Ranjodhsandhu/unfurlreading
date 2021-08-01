@@ -140,8 +140,6 @@ router
             res.cookie('token','',{maxAge:-1});
             res.redirect("/");
             // res.render('<br />');
-            // var delete_cookie = function (name) { document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;'; };
-            // delete_cookie('token')
         }catch(err){
             console.log(err);
             res.status(500).json({
