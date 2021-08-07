@@ -26,3 +26,13 @@ exports.createBook = async (bookData) => {
     throw e
   }
 }
+
+exports.removeBook = async (bookId) => {
+  try{
+    
+    Book.deleteOne({_id: bookId}, function(err, results) {});
+
+  }catch(e){
+    throw e;
+  }
+}

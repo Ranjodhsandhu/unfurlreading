@@ -4,6 +4,7 @@ import { useState } from 'react';
 //     withRouter,
 // } from 'react-router-dom';
 
+import MyBooks from './MyBooks';
 import SearchBook from './SearchBook';
 import BookList from './BookList';
 
@@ -27,7 +28,6 @@ function Main(props){
     }
     return (
         <div>
-            Main Function
             <form onSubmit= { signOut } >
                 <a href="/signout">
                     <button type="submit" >
@@ -35,8 +35,12 @@ function Main(props){
                     </button>
                 </a>
             </form>
+            <h3>My Library</h3>
+            <MyBooks />
+            <h3>Search For Books</h3>
             <SearchBook handleSubmit={handleSubmit}/> 
             <BookList  searchTerm={search}/> 
+
         </div>
     )
 } 

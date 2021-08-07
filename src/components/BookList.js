@@ -42,7 +42,6 @@ function BookList({searchTerm}){
             // do componentDidUpdate logic
             refresh(searchTerm);
             forceUpdate();
-            console.log(searchTerm);
         }
     },[refresh,searchTerm]);
 
