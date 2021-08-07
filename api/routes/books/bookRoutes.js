@@ -53,13 +53,8 @@ router.route('/')
   router.route('/remove')
         .post(async (req, res, next) => {
           const { id  } = req.body;
-
-          console.log(req.body);
-
-
           try{
             await bookService.removeBook(id);
-
             res.json({success: id});
           }catch(e){
             next(e);
