@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 
-function MyBooksCard({ book }) {
+function MyBooksCard({ book, getMyBooks }) {
 
 
     const { _id:id , name, author, thumbnail } = book || '';
@@ -16,13 +16,11 @@ function MyBooksCard({ book }) {
             },
             body: JSON.stringify( { id, name, author, thumbnail } )
         });
-
         const data = await response.json();
         if (!response.ok) {
             throw new Error(data.message);
         }
-        // console.log(props);
-        // props.getUser();
+        getMyBooks();
     }
 
 
@@ -30,7 +28,7 @@ function MyBooksCard({ book }) {
         <div>
             {
                 <div width="200" height="500"><img src={thumbnail} alt="Book Cover" width="70" height="" /><p>{name} by {author}</p>
-                    <form onSubmit={handleSubmit}>
+                    <form onSubmit={ handleSubmit }>
                         <button type="submit">Remove</button>
                     </form>
                 </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import '../App.css';
 
-function BookCard({ book, user}){
+function BookCard({ book, user, getMyBooks}){
     
     const { thumbnail } = book.volumeInfo.imageLinks || '';
     const name = book.volumeInfo.title;
@@ -24,9 +24,7 @@ function BookCard({ book, user}){
         if (!response.ok) {
             throw new Error(data.message);
         }
-        // console.log(props);
-        // props.getUser();
-
+        getMyBooks();
     }
     return(
         <div>
