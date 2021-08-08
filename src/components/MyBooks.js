@@ -1,18 +1,14 @@
 import React, { useState, useCallback, useEffect, useRef, useReducer } from 'react';
 import MyBooksCard from './MyBooksCard';
 
-export default function MyBooks() {
+export default function MyBooks({ user }) {
     const [books, setBooks] = useState([]);
     const [, forceUpdate] = useReducer(x => x + 1, 0); //This empty state will help the component to re-render on state update from search submit button
     const mounted = useRef();
+    const userId = user.id;
     const refresh = useCallback(async () => {
         try{
-            // fetch('api/books')
-            //     .then(response => response.json())
-            //     .then(({ data: books }) => {
-            //         setBooks(books)
-            //     });
-            const response = await fetch('/api/books');
+            const response = await fetch(`/api/books/${userId}`);
             const json = await response.json();
             const { data:books } = json;
             if(!response.ok){
@@ -22,7 +18,7 @@ export default function MyBooks() {
         }catch(e){
             console.log(e);
         }
-    }, []);
+    }, [userId]);
 
     useEffect(() => {
         if (!mounted.current) {

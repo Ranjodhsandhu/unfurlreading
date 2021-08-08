@@ -1,14 +1,14 @@
 import React from 'react';
 import '../App.css';
 
-function BookCard({ book }){
+function BookCard({ book, user}){
     
-
     const { thumbnail } = book.volumeInfo.imageLinks || '';
     const name = book.volumeInfo.title;
     const author = book.volumeInfo.authors;
-    const summary = book.searchInfo.textSnippet || '';
-
+    const { searchInfo } = book;
+    const summary = searchInfo ? searchInfo.textSnippet || '' : 'No Summary';
+    const userId = user.id;
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -17,7 +17,7 @@ function BookCard({ book }){
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ bookData: { name, author, summary, thumbnail } } )
+            body: JSON.stringify({ bookData: { name, author, summary, thumbnail, userId } } )
         });
 
         const data = await response.json();

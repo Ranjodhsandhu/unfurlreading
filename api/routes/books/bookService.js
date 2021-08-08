@@ -3,9 +3,9 @@
 const { model: Book } = require('./bookModel')
 
 // Helper function to list each of the books in the database
-exports.listBooks = async () => {
+exports.listBooks = async ( userId ) => {
   try {
-    const books = await Book.find({})
+    const books = await Book.find({ userId })
     return books
   } catch (e) {
     throw e

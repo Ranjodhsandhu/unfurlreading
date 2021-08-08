@@ -9,23 +9,15 @@ import SearchBook from './SearchBook';
 import BookList from './BookList';
 
 function Main(props){
-    const {setUser} = props;
+    const { signOut } = props;
     const [search, setSearch] = useState('');
-
     function handleSubmit(e) {
         e.preventDefault();
         const searchValue = e.target.firstChild.value;
         setSearch(searchValue);
     }
 
-    const signOut = async function (e){
-        e.preventDefault();
-        await  fetch('/api/users/signout')
-                .then(()=>{setUser(undefined);})
-        // return <Router>
-        //     <Redirect to="/" />
-        // </Router>
-    }
+    
     return (
         <div>
             <form onSubmit= { signOut } >
@@ -36,10 +28,10 @@ function Main(props){
                 </a>
             </form>
             <h3>My Library</h3>
-            <MyBooks />
+            <MyBooks user={props.user} />
             <h3>Search For Books</h3>
             <SearchBook handleSubmit={handleSubmit}/> 
-            <BookList  searchTerm={search}/> 
+            <BookList user={props.user} searchTerm={search}/> 
 
         </div>
     )

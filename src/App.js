@@ -25,16 +25,27 @@ function App() {
       console.log(err.message+" user not allowed");
       setUser(undefined);
     }
-  });
+  }, []);
 
   useEffect(()=>{
     getUser();
-  },[]);
+  },[getUser]);
 
+
+  const signOut = async function (e) {
+    e.preventDefault();
+    await fetch('/api/users/signout')
+      .then(() => { setUser(undefined); })
+  }
 
   return (
     <div className="App">
-        <h1>Welcome to the <strong>Unfurl Reading</strong> Stage</h1>
+        { 
+          user 
+          ? <h1>Welcome {user.firstName} to the <strong>Unfurl Reading</strong> Stage</h1>
+          : <h1>Welcome to the <strong>Unfurl Reading</strong> Stage</h1>
+        }
+        
         <Router>
           <Switch>
             <Route 
@@ -61,12 +72,10 @@ function App() {
             <Route
               path="/"
               render={ props => {
-                // console.log("printing user ");
-                // console.log(user);
                 if(!user){
                   return <Redirect to="/signin" />
                 }
-                return <Main {...props} setUser={setUser} />
+                return <Main {...props} signOut={ signOut } user={user}  />
               }}
             />
           </Switch>
