@@ -1,7 +1,50 @@
 import React from 'react';
-import '../App.css';
+
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+
+
+const useStyles = makeStyles(theme => ({
+    mainContainer: {
+        paddingTop: 10,
+        paddingBottom: 10,
+    },
+    root: {
+        maxWidth: 280,
+        minWidth: 280,
+        maxHeight: 400,
+        minHeight: 400,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    bookContainer: {
+        maxWidth: 280,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    },
+    book: {
+        display: 'flex',
+        flexDirection: 'column',
+    },
+    media: {
+        height: 140,
+        width: 100,
+    },
+    cardMedia: {
+        paddingTop: '56.25%', // 16:9
+    }
+}));
 
 function MyBooksCard({ book, getMyBooks }) {
+    const classes = useStyles();
 
 
     const { _id:id , name, author, thumbnail } = book || '';
@@ -23,18 +66,32 @@ function MyBooksCard({ book, getMyBooks }) {
         getMyBooks();
     }
 
-
     return (
-        <div>
-            {
-                <div width="200" height="500"><img src={thumbnail} alt="Book Cover" width="70" height="" /><p>{name} by {author}</p>
-                    <form onSubmit={ handleSubmit }>
-                        <button type="submit">Remove</button>
-                    </form>
-                </div>
-            }
-            <br />
-            <br />
+        <div className={classes.mainContainer}>
+            <Card className={classes.root}>
+                <CardContent className={classes.bookContainer}>
+                    <CardActionArea className={classes.book}>
+                        <CardMedia
+                            className={classes.media}
+                            image={thumbnail}
+                            title="Book Cover"
+                        />
+                        <CardContent>
+                            <Typography gutterBottom variant="h6" component="h3">
+                                {name}
+                            </Typography>
+                            <Typography variant="body2" color="textSecondary" component="p">
+                                {`By ${author}`}
+                            </Typography>
+                        </CardContent>
+                    </CardActionArea>
+                    <CardActions onClick={handleSubmit}>
+                        <Button size="small" color="primary">
+                            Remove From Library
+                        </Button>
+                    </CardActions>
+                </CardContent>
+            </Card>
         </div>
     )
 }

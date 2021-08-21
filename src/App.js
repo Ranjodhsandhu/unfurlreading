@@ -40,12 +40,6 @@ function App() {
 
   return (
     <div className="App">
-        { 
-          user 
-          ? <h1>Welcome {user.firstName} to the <strong>Unfurl Reading</strong> Stage</h1>
-          : <h1>Welcome to the <strong>Unfurl Reading</strong> Stage</h1>
-        }
-        
         <Router>
           <Switch>
             <Route 

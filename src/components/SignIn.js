@@ -12,6 +12,9 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import SnackBar from '@material-ui/core/Snackbar';
+
+
 
 function Copyright() {
     return (
@@ -50,6 +53,7 @@ export default function SignIn(props){
 
     const [ email, setEmail ] = useState('');
     const [ password, setPassword ] = useState('');
+    const [ error, setError ] = useState('');
 
     const handleSubmit = async (e)=>{
         e.preventDefault();
@@ -63,6 +67,14 @@ export default function SignIn(props){
 
         const data = await response.json();
         if(!response.ok){
+            if(response.status >= 500){
+                setError("Something went wrong, Please try again.");
+                return;
+            }
+            if(response.status >= 400){
+                setError(data.message);
+                return;
+            }
             throw new Error( data.message );
         }
         props.getUser();
@@ -70,6 +82,17 @@ export default function SignIn(props){
     return(
         <Container component="main" maxWidth="xs">
             <CssBaseline />
+            <SnackBar
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={!!error}
+                autoHideDuration={2000}
+                message={
+                    <span id="message-id">
+                        <Typography color="error">{error}</Typography>
+                    </span>
+                }
+                onClose={() => { setError('') }}
+            />
             <div className={classes.paper}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
