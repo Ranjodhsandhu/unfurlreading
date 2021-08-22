@@ -30,7 +30,9 @@ function App() {
   useEffect(()=>{
     getUser();
   },[getUser]);
-
+  useEffect(() => {
+    document.title = "Unfurl Reading"
+  }, []);
 
   const signOut = async function (e) {
     e.preventDefault();
