@@ -2,20 +2,7 @@ import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import Link from '@material-ui/core/Link';
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary">
-            {'Copyright © '}
-            <Link color="inherit" href="localhost:3000">
-                Unfurl Reading
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
+import Copyright from './Copyright';
 
 const useStyles = makeStyles(theme => ({
     footer: {

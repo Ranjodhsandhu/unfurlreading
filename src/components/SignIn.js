@@ -1,4 +1,5 @@
 import  React, { useState }  from 'react';
+import Copyright from './Copyright';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,20 +15,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import SnackBar from '@material-ui/core/Snackbar';
 
-
-
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="#">
-                Unfurl Reading
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 const useStyles = makeStyles((theme) => ({
     paper: {
         marginTop: theme.spacing(8),
@@ -158,21 +145,5 @@ export default function SignIn(props){
             <Copyright />
         </Box>
     </Container>
-
-
-        // <div>
-        //     <form >
-                
-        //         <label htmlFor="email">Email Address:</label>
-        //         <input type="text"  id="email" name="email"  required/>
-        //         <br />
-        //         <label htmlFor="password">Password:</label>
-        //         <input type="password"  id="password" name="password"  required/>
-        //         <br />
-        //         <button type="submit">Sign In</button>
-        //         <br />
-                
-        //     </form>
-        // </div>
     )
 }

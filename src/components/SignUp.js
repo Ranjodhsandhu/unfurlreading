@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Copyright from './Copyright';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -13,18 +14,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 
-function Copyright() {
-    return (
-        <Typography variant="body2" color="textSecondary" align="center">
-            {'Copyright © '}
-            <Link color="inherit" href="https://material-ui.com/">
-                Your Website
-            </Link>{' '}
-            {new Date().getFullYear()}
-            {'.'}
-        </Typography>
-    );
-}
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -188,51 +177,5 @@ export default function SignUp(props){
                 <Copyright />
             </Box>
         </Container>
-
-
-        // <div>
-        //     <form onSubmit={ handleSubmit }>
-        //         <label htmlFor="firstName">First Name: </label>
-        //         <input 
-        //             type="text" 
-        //             value={firstName}
-        //             id="firstName"
-        //             name="firstName"
-        //             onChange={e=>setFirstName(e.target.value)}
-        //         />
-        //         <br />
-        //         <label htmlFor="lastName">Last Name: </label>
-        //         <input
-        //             type="text"
-        //             value={lastName}
-        //             id="lastName"
-        //             name="lastName"
-        //             onChange={e => setLastName(e.target.value)}
-        //         />
-        //         <br />
-        //         <label htmlFor="email">Email: </label>
-        //         <input
-        //             type="text"                    value={email}
-        //             id="email"
-        //             name="email"
-        //             onChange={e => setEmail(e.target.value)}
-        //         />
-        //         <br />
-        //         <label htmlFor="password">Password: </label>
-        //         <input
-        //             type="password"
-        //             value={password}
-        //             id="password"
-        //             name="password"
-        //             onChange={e => setPassword(e.target.value)}
-        //         />
-        //         <br />
-        //         <button type="submit">
-        //             Sign Up
-        //         </button>
-        //         <br />
-        //         <Link to="/signin" >Already have an account? Sign In </Link>
-        //     </form>
-        // </div>
     );
 }
