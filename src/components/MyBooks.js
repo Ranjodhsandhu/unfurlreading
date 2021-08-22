@@ -9,7 +9,6 @@ const useStyles = makeStyles(theme => ({
     cardGrid: {
         paddingTop: theme.spacing(8),
         paddingBottom: theme.spacing(8),
-        border:'1px red solid',
     },
 }));
 
@@ -18,7 +17,7 @@ export default function MyBooks({ books, getMyBooks }) {
 
     return (
         <Container className={classes.cardGrid} maxWidth="md">
-            <Grid container spacing={4} justifyContent="center" alignItems="center" style={{ border: '1px green solid'}}>
+            <Grid container spacing={4} justifyContent="center" alignItems="center">
                     {
                         books && books.length > 0
                         ?

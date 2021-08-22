@@ -9,26 +9,25 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 
 const useStyles = makeStyles(theme => ({
-    mainContainer:{
-        paddingTop:10,
-        paddingBottom:10,
-    },
-    root: {
-        maxWidth: 280,
-        minWidth:280,
-        maxHeight:400,
-        minHeight:400,
+    mainContainer: {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+    },
+    root: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        maxWidth: 270,
+        minWidth: 270,
+        maxHeight: 400,
+        minHeight: 400,
     },
     bookContainer: {
         maxWidth: 280,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        flexWrap: 'wrap',
-
+        justifyContent: 'center',
     },
     book:{
         display: 'flex',

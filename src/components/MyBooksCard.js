@@ -22,8 +22,8 @@ const useStyles = makeStyles(theme => ({
         paddingBottom: 10,
         maxWidth: 270,
         minWidth: 270,
-        maxHeight: 350,
-        minHeight: 350,
+        maxHeight: 400,
+        minHeight: 400,
     },
     bookContainer: {
         maxWidth: 280,

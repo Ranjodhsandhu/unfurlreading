@@ -26,18 +26,12 @@ function BookList({user, books, getMyBooks}){
     return(
         <div>
             <Container className={classes.cardGrid} maxWidth="md">
-                <Grid container spacing={2}>
+                <Grid container spacing={4} justifyContent="center" alignItems="center">
                     {
                         books && books.length > 0
                         ?
                         books.map(book =>{
-                            return (<Grid
-                                        xs={1}
-                                        sm={6}
-                                        md={4}
-                                        item
-                                        key={book.id}
-                                    >
+                            return (<Grid xs={12} sm={6} md={4} item key={book.id} >
                                         <BookCard user={user} book={book} getMyBooks={getMyBooks} />
                                     </Grid>
                                 )})
