@@ -22,7 +22,7 @@ export default function MyBooks({ books, getMyBooks }) {
                         books && books.length > 0
                         ?
                         books.map(book => {
-                            return (<Grid xs={12} sm={6} md={2} item key={book._id}>
+                            return (<Grid xs={12} sm={6} md={4} item key={book._id}>
                                 <MyBooksCard book={book} getMyBooks={getMyBooks} />
                             </Grid>
                             )
