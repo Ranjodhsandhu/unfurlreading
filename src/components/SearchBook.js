@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
         alignItems: 'center',
     },
     searchGrid:{
-        width:'50ch',
+        width:'45ch',
         display:'flex',
         flexDirection:'row',
     },
