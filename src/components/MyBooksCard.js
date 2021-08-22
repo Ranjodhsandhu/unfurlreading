@@ -11,24 +11,26 @@ import Button from '@material-ui/core/Button';
 
 
 const useStyles = makeStyles(theme => ({
+    
     mainContainer: {
-        paddingTop: 10,
-        paddingBottom: 10,
-    },
-    root: {
-        maxWidth: 280,
-        minWidth: 280,
-        maxHeight: 400,
-        minHeight: 400,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+    },
+    root: {
+        paddingTop: 10,
+        paddingBottom: 10,
+        maxWidth: 270,
+        minWidth: 270,
+        maxHeight: 350,
+        minHeight: 350,
     },
     bookContainer: {
         maxWidth: 280,
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        justifyContent:'center',
     },
     book: {
         display: 'flex',
@@ -49,7 +51,7 @@ function MyBooksCard({ book, getMyBooks }) {
 
     const { _id:id , name, author, thumbnail } = book || '';
     // const summary = book.summary || '';
-    console.log(id);
+    // console.log(id);
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch('/api/books/remove', {

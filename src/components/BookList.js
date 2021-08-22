@@ -22,6 +22,7 @@ const useStyles = makeStyles(theme => ({
 function BookList({user, books, getMyBooks}){
     const classes = useStyles();
 
+
     return(
         <div>
             <Container className={classes.cardGrid} maxWidth="md">
@@ -31,7 +32,7 @@ function BookList({user, books, getMyBooks}){
                         ?
                         books.map(book =>{
                             return (<Grid
-                                        xs={3}
+                                        xs={1}
                                         sm={6}
                                         md={4}
                                         item

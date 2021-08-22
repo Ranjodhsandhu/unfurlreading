@@ -13,7 +13,6 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
-
 const useStyles = makeStyles(theme => ({
     icon: {
         marginRight: theme.spacing(2),
@@ -26,6 +25,7 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
+        flexWrap:'wrap',
     },
     main: {
         marginTop: theme.spacing(8),
@@ -132,7 +132,7 @@ function Main(props){
             </AppBar>
             <div>
                 <h3>My Library</h3>
-                <MyBooks user={props.user} books={myBooks} getMyBooks={getMyBooks}/>
+                <MyBooks user={user} books={myBooks} getMyBooks={getMyBooks}/>
                 <h3>Search For Books</h3>
                 <SearchBook handleSubmit={handleSubmit}/> 
                 <BookList user={user} searchTerm={search} books={googleBooks} getMyBooks={getMyBooks}/>

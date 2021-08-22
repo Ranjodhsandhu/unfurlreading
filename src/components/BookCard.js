@@ -1,6 +1,4 @@
 import React from 'react';
-// import '../App.css';
-
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
@@ -29,6 +27,8 @@ const useStyles = makeStyles(theme => ({
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
+        flexWrap: 'wrap',
+
     },
     book:{
         display: 'flex',
@@ -42,11 +42,8 @@ const useStyles = makeStyles(theme => ({
         paddingTop: '56.25%', // 16:9
     }
 }));
-
-
 function BookCard({ book, user, getMyBooks}){
     const classes = useStyles();
-
     const { thumbnail } = book.volumeInfo.imageLinks || '';
     const name = book.volumeInfo.title;
     const author = book.volumeInfo.authors;
@@ -71,8 +68,6 @@ function BookCard({ book, user, getMyBooks}){
         }
         getMyBooks();
     }
-
-
     return(
         <div className={classes.mainContainer}>
             <Card className={classes.root}>
