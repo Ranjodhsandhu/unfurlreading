@@ -4,10 +4,10 @@ import MyBooks from './MyBooks';
 import SearchBook from './SearchBook';
 import BookList from './BookList';
 import Footer from './Footer';
+import SimpleMenu from './SimpleMenu';
 
 // Design imports
 import AppBar from '@material-ui/core/AppBar';
-import NoteIcon from '@material-ui/icons/Note';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
@@ -46,6 +46,8 @@ function Main(props){
     const [search, setSearch] = useState('');
     const [googleBooks, setGoogleBooks] = useState([]);
     const [myBooks, setMyBooks] = useState([]);
+    const [showMyBooks, setShowMyBooks ] = useState(false);
+    const [showSearch, setShowSearch ] = useState(true);
 
     // This empty state will help the component to re-render on state update from search submit button
     const [, forceUpdate] = useReducer(x => x + 1, 0); 
@@ -119,23 +121,33 @@ function Main(props){
             <CssBaseline />
             <AppBar position="relative">
                 <Toolbar>
-                    <NoteIcon className={classes.icon} />
+                    <SimpleMenu setShowMyBooks={setShowMyBooks} setShowSearch={setShowSearch} />
                     <Typography variant="h6" color="inherit" noWrap className={classes.title} >
                         {
-                            user
-                                ? `Welcome ${user.firstName} to the Unfurl Reading Stage`
-                                : 'Welcome to the Unfurl Reading Stage'
+                            user?'Unfurl Reading':'Unfurl Reading'
+                                // ? `Welcome ${user.firstName} to the Unfurl Reading Stage`
+                                // : 'Welcome to the Unfurl Reading Stage'
                         }
                     </Typography>
                     <Button color="inherit" onClick={signOut}>Logout</Button>
                 </Toolbar>
             </AppBar>
             <div>
-                <h3>My Library</h3>
-                <MyBooks user={user} books={myBooks} getMyBooks={getMyBooks}/>
-                <h3>Search For Books</h3>
-                <SearchBook handleSubmit={handleSubmit}/> 
-                <BookList user={user} searchTerm={search} books={googleBooks} getMyBooks={getMyBooks}/>
+                {
+                    showMyBooks && 
+                    <div>
+                        <h3>My Library</h3>
+                        <MyBooks user={user} books={myBooks} getMyBooks={getMyBooks}/>
+                    </div>
+                }
+                {
+                    showSearch &&
+                    <div>
+                        <h3>Search For Books</h3>
+                        <SearchBook handleSubmit={handleSubmit}/> 
+                        <BookList user={user} searchTerm={search} books={googleBooks} getMyBooks={getMyBooks}/>
+                    </div>
+                }
             </div>
             <Footer />
         </div>
