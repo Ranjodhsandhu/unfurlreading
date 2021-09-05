@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SearchBook({handleSubmit}){
     const classes = useStyles();
-    const [searchValue, setSearchValue ] = useState('javascript')
+    const [searchValue, setSearchValue ] = useState('')
 
     const handleSearchText = (e)=>{
         e.preventDefault();

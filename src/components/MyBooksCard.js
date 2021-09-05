@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -8,6 +8,8 @@ import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import SnackBar from '@material-ui/core/Snackbar';
 
 
 const useStyles = makeStyles(theme => ({
@@ -42,16 +44,30 @@ const useStyles = makeStyles(theme => ({
     },
     cardMedia: {
         paddingTop: '56.25%', // 16:9
+    },
+    snackMessage:{
+        color:'#fff',
+    },
+    snackText: {
+        display: 'block',
+        textAlign: 'center',
+        color: "#fff",
+        background: "#000",
+        padding: 10,
+        borderRadius: 5,
+        width: '200px'
     }
 }));
 
 function MyBooksCard({ book, getMyBooks }) {
     const classes = useStyles();
-
-
     const { _id:id , name, author, thumbnail } = book || '';
     // const summary = book.summary || '';
-    // console.log(id);
+    const [removeBookBoolean, setRemoveBookBoolean] = useState(false);
+    
+    function timeout(delay = 0) {
+        return new Promise(res => setTimeout(res, delay));
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
         const response = await fetch('/api/books/remove', {
@@ -65,11 +81,26 @@ function MyBooksCard({ book, getMyBooks }) {
         if (!response.ok) {
             throw new Error(data.message);
         }
+        setRemoveBookBoolean(true);
+        await timeout(1000);
         getMyBooks();
     }
 
     return (
         <div className={classes.mainContainer}>
+            <CssBaseline />
+            <SnackBar
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={!!removeBookBoolean}
+                autoHideDuration={1000}
+                className={classes.snackMessage}
+                message=''
+                onClose={() => { setRemoveBookBoolean(false) }}
+            >
+                <span id="message-id">
+                    <Typography className={classes.snackText}>Removing Book</Typography>
+                </span>
+            </SnackBar>
             <Card className={classes.root}>
                 <CardContent className={classes.bookContainer}>
                     <CardActionArea className={classes.book}>
@@ -87,7 +118,7 @@ function MyBooksCard({ book, getMyBooks }) {
                             </Typography>
                         </CardContent>
                     </CardActionArea>
-                    <CardActions onClick={handleSubmit}>
+                    <CardActions onClick={ handleSubmit }>
                         <Button size="small" color="primary">
                             Remove From Library
                         </Button>

@@ -13,6 +13,9 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import SnackBar from '@material-ui/core/Snackbar';
+import ExitToAppOutlinedIcon from '@material-ui/icons/ExitToAppOutlined';
+
 const useStyles = makeStyles(theme => ({
     icon: {
         marginRight: theme.spacing(2),
@@ -33,6 +36,19 @@ const useStyles = makeStyles(theme => ({
     },
     title: {
         flexGrow: 1,
+    },
+    snackMessage:{
+        display:'block',
+        textAlign:'center',
+    },
+    snackText:{
+        display: 'block',
+        textAlign: 'center',
+        color:"#fff",
+        background:"#000",
+        padding:10,
+        borderRadius:5,
+        width:'200px'
     }
 }));
 
@@ -48,6 +64,7 @@ function Main(props){
     const [myBooks, setMyBooks] = useState([]);
     const [showMyBooks, setShowMyBooks ] = useState(false);
     const [showSearch, setShowSearch ] = useState(true);
+    const [updateListBoolean, setUpdateListBoolean] = useState(false);
 
     // This empty state will help the component to re-render on state update from search submit button
     const [, forceUpdate] = useReducer(x => x + 1, 0); 
@@ -56,9 +73,10 @@ function Main(props){
     
     const googleApiSearch = useCallback(async (searchText) => {
         try {
-            const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchText || 'javascript'}&projection=lite&orderby=newest`);
+            const response = await fetch(`https://www.googleapis.com/books/v1/volumes?q=${searchText || 'Popular'}&projection=lite&orderby=newest`);
             const json = await response.json();
             const { items: search } = json;
+            // console.log(search);
             setGoogleBooks(search);
         } catch (e) {
             console.log("Google Books Search" + e);
@@ -87,6 +105,7 @@ function Main(props){
                 throw new Error('Could not get books');
             }
             setMyBooks(books);
+            setUpdateListBoolean(true);
         } catch (e) {
             console.log(e);
         }
@@ -101,7 +120,6 @@ function Main(props){
         } else {
             // do componentDidUpdate logic
             getMyBooks();
-            forceUpdate();
         }
     }, [getMyBooks]);
 
@@ -119,6 +137,17 @@ function Main(props){
     return (
         <div className={classes.root}>
             <CssBaseline />
+            <SnackBar
+                anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+                open={!!updateListBoolean}
+                autoHideDuration={1000}
+                className={classes.snackMessage}
+                onClose={() => { setUpdateListBoolean(false) }}
+            >
+                <span id="message-id">
+                    <Typography className={classes.snackText}>Library Updated</Typography>
+                </span>
+            </SnackBar>
             <AppBar position="relative">
                 <Toolbar>
                     <SimpleMenu setShowMyBooks={setShowMyBooks} setShowSearch={setShowSearch} />
@@ -129,7 +158,10 @@ function Main(props){
                                 // : 'Welcome to the Unfurl Reading Stage'
                         }
                     </Typography>
-                    <Button color="inherit" onClick={signOut}>Logout</Button>
+                    <Button color="inherit" onClick={signOut}>
+                        <ExitToAppOutlinedIcon />
+                    </Button>
+                    
                 </Toolbar>
             </AppBar>
             <div>
